@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.outdoor.mapper.ActivemanagerMapper" >
+  <resultMap id="BaseResultMap" type="com.my.outdoor.pojo.Activemanager" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="aline" property="aline" jdbcType="VARCHAR" />
+    <result column="asecure" property="asecure" jdbcType="VARCHAR" />
+    <result column="adangerous" property="adangerous" jdbcType="VARCHAR" />
+    <result column="astronger" property="astronger" jdbcType="VARCHAR" />
+    <result column="aproject" property="aproject" jdbcType="VARCHAR" />
+    <result column="activestatues" property="activestatues" jdbcType="VARCHAR" />
+    <result column="acontent" property="acontent" jdbcType="VARCHAR" />
+    <result column="apicture" property="apicture" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    aid, aname, aline, asecure, adangerous, astronger, aproject, activestatues, acontent, 
+    apicture
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.my.outdoor.pojo.ActivemanagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from activemanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activemanager
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activemanager
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.my.outdoor.pojo.ActivemanagerExample" >
+    delete from activemanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.my.outdoor.pojo.Activemanager" >
+    insert into activemanager (aid, aname, aline, 
+      asecure, adangerous, astronger, 
+      aproject, activestatues, acontent, 
+      apicture)
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{aline,jdbcType=VARCHAR}, 
+      #{asecure,jdbcType=VARCHAR}, #{adangerous,jdbcType=VARCHAR}, #{astronger,jdbcType=VARCHAR}, 
+      #{aproject,jdbcType=VARCHAR}, #{activestatues,jdbcType=VARCHAR}, #{acontent,jdbcType=VARCHAR}, 
+      #{apicture,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.my.outdoor.pojo.Activemanager" >
+    insert into activemanager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="aline != null" >
+        aline,
+      </if>
+      <if test="asecure != null" >
+        asecure,
+      </if>
+      <if test="adangerous != null" >
+        adangerous,
+      </if>
+      <if test="astronger != null" >
+        astronger,
+      </if>
+      <if test="aproject != null" >
+        aproject,
+      </if>
+      <if test="activestatues != null" >
+        activestatues,
+      </if>
+      <if test="acontent != null" >
+        acontent,
+      </if>
+      <if test="apicture != null" >
+        apicture,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aline != null" >
+        #{aline,jdbcType=VARCHAR},
+      </if>
+      <if test="asecure != null" >
+        #{asecure,jdbcType=VARCHAR},
+      </if>
+      <if test="adangerous != null" >
+        #{adangerous,jdbcType=VARCHAR},
+      </if>
+      <if test="astronger != null" >
+        #{astronger,jdbcType=VARCHAR},
+      </if>
+      <if test="aproject != null" >
+        #{aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="activestatues != null" >
+        #{activestatues,jdbcType=VARCHAR},
+      </if>
+      <if test="acontent != null" >
+        #{acontent,jdbcType=VARCHAR},
+      </if>
+      <if test="apicture != null" >
+        #{apicture,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.my.outdoor.pojo.ActivemanagerExample" resultType="java.lang.Integer" >
+    select count(*) from activemanager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update activemanager
+    <set >
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aname != null" >
+        aname = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aline != null" >
+        aline = #{record.aline,jdbcType=VARCHAR},
+      </if>
+      <if test="record.asecure != null" >
+        asecure = #{record.asecure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.adangerous != null" >
+        adangerous = #{record.adangerous,jdbcType=VARCHAR},
+      </if>
+      <if test="record.astronger != null" >
+        astronger = #{record.astronger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aproject != null" >
+        aproject = #{record.aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activestatues != null" >
+        activestatues = #{record.activestatues,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acontent != null" >
+        acontent = #{record.acontent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apicture != null" >
+        apicture = #{record.apicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update activemanager
+    set aid = #{record.aid,jdbcType=INTEGER},
+      aname = #{record.aname,jdbcType=VARCHAR},
+      aline = #{record.aline,jdbcType=VARCHAR},
+      asecure = #{record.asecure,jdbcType=VARCHAR},
+      adangerous = #{record.adangerous,jdbcType=VARCHAR},
+      astronger = #{record.astronger,jdbcType=VARCHAR},
+      aproject = #{record.aproject,jdbcType=VARCHAR},
+      activestatues = #{record.activestatues,jdbcType=VARCHAR},
+      acontent = #{record.acontent,jdbcType=VARCHAR},
+      apicture = #{record.apicture,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.outdoor.pojo.Activemanager" >
+    update activemanager
+    <set >
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aline != null" >
+        aline = #{aline,jdbcType=VARCHAR},
+      </if>
+      <if test="asecure != null" >
+        asecure = #{asecure,jdbcType=VARCHAR},
+      </if>
+      <if test="adangerous != null" >
+        adangerous = #{adangerous,jdbcType=VARCHAR},
+      </if>
+      <if test="astronger != null" >
+        astronger = #{astronger,jdbcType=VARCHAR},
+      </if>
+      <if test="aproject != null" >
+        aproject = #{aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="activestatues != null" >
+        activestatues = #{activestatues,jdbcType=VARCHAR},
+      </if>
+      <if test="acontent != null" >
+        acontent = #{acontent,jdbcType=VARCHAR},
+      </if>
+      <if test="apicture != null" >
+        apicture = #{apicture,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.outdoor.pojo.Activemanager" >
+    update activemanager
+    set aname = #{aname,jdbcType=VARCHAR},
+      aline = #{aline,jdbcType=VARCHAR},
+      asecure = #{asecure,jdbcType=VARCHAR},
+      adangerous = #{adangerous,jdbcType=VARCHAR},
+      astronger = #{astronger,jdbcType=VARCHAR},
+      aproject = #{aproject,jdbcType=VARCHAR},
+      activestatues = #{activestatues,jdbcType=VARCHAR},
+      acontent = #{acontent,jdbcType=VARCHAR},
+      apicture = #{apicture,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.outdoor.mapper.SafestrongerMapper" >
+  <resultMap id="BaseResultMap" type="com.my.outdoor.pojo.Safestronger" >
+    <id column="ssid" property="ssid" jdbcType="INTEGER" />
+    <result column="ssname" property="ssname" jdbcType="VARCHAR" />
+    <result column="sslv" property="sslv" jdbcType="VARCHAR" />
+    <result column="sscontent" property="sscontent" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ssid, ssname, sslv, sscontent
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.my.outdoor.pojo.SafestrongerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from safestronger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from safestronger
+    where ssid = #{ssid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from safestronger
+    where ssid = #{ssid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.my.outdoor.pojo.SafestrongerExample" >
+    delete from safestronger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.my.outdoor.pojo.Safestronger" >
+    insert into safestronger (ssid, ssname, sslv, 
+      sscontent)
+    values (#{ssid,jdbcType=INTEGER}, #{ssname,jdbcType=VARCHAR}, #{sslv,jdbcType=VARCHAR}, 
+      #{sscontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.my.outdoor.pojo.Safestronger" >
+    insert into safestronger
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ssid != null" >
+        ssid,
+      </if>
+      <if test="ssname != null" >
+        ssname,
+      </if>
+      <if test="sslv != null" >
+        sslv,
+      </if>
+      <if test="sscontent != null" >
+        sscontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ssid != null" >
+        #{ssid,jdbcType=INTEGER},
+      </if>
+      <if test="ssname != null" >
+        #{ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="sslv != null" >
+        #{sslv,jdbcType=VARCHAR},
+      </if>
+      <if test="sscontent != null" >
+        #{sscontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.my.outdoor.pojo.SafestrongerExample" resultType="java.lang.Integer" >
+    select count(*) from safestronger
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update safestronger
+    <set >
+      <if test="record.ssid != null" >
+        ssid = #{record.ssid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ssname != null" >
+        ssname = #{record.ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sslv != null" >
+        sslv = #{record.sslv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sscontent != null" >
+        sscontent = #{record.sscontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update safestronger
+    set ssid = #{record.ssid,jdbcType=INTEGER},
+      ssname = #{record.ssname,jdbcType=VARCHAR},
+      sslv = #{record.sslv,jdbcType=VARCHAR},
+      sscontent = #{record.sscontent,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.outdoor.pojo.Safestronger" >
+    update safestronger
+    <set >
+      <if test="ssname != null" >
+        ssname = #{ssname,jdbcType=VARCHAR},
+      </if>
+      <if test="sslv != null" >
+        sslv = #{sslv,jdbcType=VARCHAR},
+      </if>
+      <if test="sscontent != null" >
+        sscontent = #{sscontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ssid = #{ssid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.outdoor.pojo.Safestronger" >
+    update safestronger
+    set ssname = #{ssname,jdbcType=VARCHAR},
+      sslv = #{sslv,jdbcType=VARCHAR},
+      sscontent = #{sscontent,jdbcType=VARCHAR}
+    where ssid = #{ssid,jdbcType=INTEGER}
+  </update>
+</mapper>

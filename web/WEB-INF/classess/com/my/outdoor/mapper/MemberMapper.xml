@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.outdoor.mapper.MemberMapper" >
+  <resultMap id="BaseResultMap" type="com.my.outdoor.pojo.Member" >
+    <id column="hid" property="hid" jdbcType="INTEGER" />
+    <result column="hname" property="hname" jdbcType="VARCHAR" />
+    <result column="hpwd" property="hpwd" jdbcType="VARCHAR" />
+    <result column="hphonenumber" property="hphonenumber" jdbcType="VARCHAR" />
+    <result column="hlv" property="hlv" jdbcType="VARCHAR" />
+    <result column="hidcard" property="hidcard" jdbcType="VARCHAR" />
+    <result column="hemail" property="hemail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    hid, hname, hpwd, hphonenumber, hlv, hidcard, hemail
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.my.outdoor.pojo.MemberExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from member
+    where hid = #{hid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from member
+    where hid = #{hid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.my.outdoor.pojo.MemberExample" >
+    delete from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.my.outdoor.pojo.Member" >
+    insert into member (hid, hname, hpwd, 
+      hphonenumber, hlv, hidcard, 
+      hemail)
+    values (#{hid,jdbcType=INTEGER}, #{hname,jdbcType=VARCHAR}, #{hpwd,jdbcType=VARCHAR}, 
+      #{hphonenumber,jdbcType=VARCHAR}, #{hlv,jdbcType=VARCHAR}, #{hidcard,jdbcType=VARCHAR}, 
+      #{hemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.my.outdoor.pojo.Member" >
+    insert into member
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="hname != null" >
+        hname,
+      </if>
+      <if test="hpwd != null" >
+        hpwd,
+      </if>
+      <if test="hphonenumber != null" >
+        hphonenumber,
+      </if>
+      <if test="hlv != null" >
+        hlv,
+      </if>
+      <if test="hidcard != null" >
+        hidcard,
+      </if>
+      <if test="hemail != null" >
+        hemail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hid != null" >
+        #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="hname != null" >
+        #{hname,jdbcType=VARCHAR},
+      </if>
+      <if test="hpwd != null" >
+        #{hpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="hphonenumber != null" >
+        #{hphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hlv != null" >
+        #{hlv,jdbcType=VARCHAR},
+      </if>
+      <if test="hidcard != null" >
+        #{hidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="hemail != null" >
+        #{hemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.my.outdoor.pojo.MemberExample" resultType="java.lang.Integer" >
+    select count(*) from member
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update member
+    <set >
+      <if test="record.hid != null" >
+        hid = #{record.hid,jdbcType=INTEGER},
+      </if>
+      <if test="record.hname != null" >
+        hname = #{record.hname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hpwd != null" >
+        hpwd = #{record.hpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hphonenumber != null" >
+        hphonenumber = #{record.hphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hlv != null" >
+        hlv = #{record.hlv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hidcard != null" >
+        hidcard = #{record.hidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hemail != null" >
+        hemail = #{record.hemail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update member
+    set hid = #{record.hid,jdbcType=INTEGER},
+      hname = #{record.hname,jdbcType=VARCHAR},
+      hpwd = #{record.hpwd,jdbcType=VARCHAR},
+      hphonenumber = #{record.hphonenumber,jdbcType=VARCHAR},
+      hlv = #{record.hlv,jdbcType=VARCHAR},
+      hidcard = #{record.hidcard,jdbcType=VARCHAR},
+      hemail = #{record.hemail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.outdoor.pojo.Member" >
+    update member
+    <set >
+      <if test="hname != null" >
+        hname = #{hname,jdbcType=VARCHAR},
+      </if>
+      <if test="hpwd != null" >
+        hpwd = #{hpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="hphonenumber != null" >
+        hphonenumber = #{hphonenumber,jdbcType=VARCHAR},
+      </if>
+      <if test="hlv != null" >
+        hlv = #{hlv,jdbcType=VARCHAR},
+      </if>
+      <if test="hidcard != null" >
+        hidcard = #{hidcard,jdbcType=VARCHAR},
+      </if>
+      <if test="hemail != null" >
+        hemail = #{hemail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hid = #{hid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.outdoor.pojo.Member" >
+    update member
+    set hname = #{hname,jdbcType=VARCHAR},
+      hpwd = #{hpwd,jdbcType=VARCHAR},
+      hphonenumber = #{hphonenumber,jdbcType=VARCHAR},
+      hlv = #{hlv,jdbcType=VARCHAR},
+      hidcard = #{hidcard,jdbcType=VARCHAR},
+      hemail = #{hemail,jdbcType=VARCHAR}
+    where hid = #{hid,jdbcType=INTEGER}
+  </update>
+</mapper>

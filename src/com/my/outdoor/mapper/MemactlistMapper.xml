@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.outdoor.mapper.MemactlistMapper" >
+  <resultMap id="BaseResultMap" type="com.my.outdoor.pojo.Memactlist" >
+    <id column="maid" property="maid" jdbcType="INTEGER" />
+    <result column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="aname" property="aname" jdbcType="VARCHAR" />
+    <result column="alinename" property="alinename" jdbcType="VARCHAR" />
+    <result column="aproject" property="aproject" jdbcType="VARCHAR" />
+    <result column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    maid, aid, aname, alinename, aproject, mid, mname
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.my.outdoor.pojo.MemactlistExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from memactlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from memactlist
+    where maid = #{maid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from memactlist
+    where maid = #{maid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.my.outdoor.pojo.MemactlistExample" >
+    delete from memactlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.my.outdoor.pojo.Memactlist" >
+    insert into memactlist (maid, aid, aname, 
+      alinename, aproject, mid, 
+      mname)
+    values (#{maid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, 
+      #{alinename,jdbcType=VARCHAR}, #{aproject,jdbcType=VARCHAR}, #{mid,jdbcType=INTEGER}, 
+      #{mname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.my.outdoor.pojo.Memactlist" >
+    insert into memactlist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="maid != null" >
+        maid,
+      </if>
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="aname != null" >
+        aname,
+      </if>
+      <if test="alinename != null" >
+        alinename,
+      </if>
+      <if test="aproject != null" >
+        aproject,
+      </if>
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="maid != null" >
+        #{maid,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="alinename != null" >
+        #{alinename,jdbcType=VARCHAR},
+      </if>
+      <if test="aproject != null" >
+        #{aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.my.outdoor.pojo.MemactlistExample" resultType="java.lang.Integer" >
+    select count(*) from memactlist
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update memactlist
+    <set >
+      <if test="record.maid != null" >
+        maid = #{record.maid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aid != null" >
+        aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.aname != null" >
+        aname = #{record.aname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alinename != null" >
+        alinename = #{record.alinename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aproject != null" >
+        aproject = #{record.aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mid != null" >
+        mid = #{record.mid,jdbcType=INTEGER},
+      </if>
+      <if test="record.mname != null" >
+        mname = #{record.mname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update memactlist
+    set maid = #{record.maid,jdbcType=INTEGER},
+      aid = #{record.aid,jdbcType=INTEGER},
+      aname = #{record.aname,jdbcType=VARCHAR},
+      alinename = #{record.alinename,jdbcType=VARCHAR},
+      aproject = #{record.aproject,jdbcType=VARCHAR},
+      mid = #{record.mid,jdbcType=INTEGER},
+      mname = #{record.mname,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.outdoor.pojo.Memactlist" >
+    update memactlist
+    <set >
+      <if test="aid != null" >
+        aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null" >
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="alinename != null" >
+        alinename = #{alinename,jdbcType=VARCHAR},
+      </if>
+      <if test="aproject != null" >
+        aproject = #{aproject,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null" >
+        mid = #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where maid = #{maid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.outdoor.pojo.Memactlist" >
+    update memactlist
+    set aid = #{aid,jdbcType=INTEGER},
+      aname = #{aname,jdbcType=VARCHAR},
+      alinename = #{alinename,jdbcType=VARCHAR},
+      aproject = #{aproject,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=INTEGER},
+      mname = #{mname,jdbcType=VARCHAR}
+    where maid = #{maid,jdbcType=INTEGER}
+  </update>
+</mapper>

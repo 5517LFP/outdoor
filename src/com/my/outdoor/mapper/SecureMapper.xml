@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.my.outdoor.mapper.SecureMapper" >
+  <resultMap id="BaseResultMap" type="com.my.outdoor.pojo.Secure" >
+    <id column="seid" property="seid" jdbcType="INTEGER" />
+    <result column="sename" property="sename" jdbcType="VARCHAR" />
+    <result column="selv" property="selv" jdbcType="VARCHAR" />
+    <result column="semoney" property="semoney" jdbcType="VARCHAR" />
+    <result column="secompany" property="secompany" jdbcType="VARCHAR" />
+    <result column="seneedmoney" property="seneedmoney" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    seid, sename, selv, semoney, secompany, seneedmoney
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.my.outdoor.pojo.SecureExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from secure
+    where seid = #{seid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from secure
+    where seid = #{seid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.my.outdoor.pojo.SecureExample" >
+    delete from secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.my.outdoor.pojo.Secure" >
+    insert into secure (seid, sename, selv, 
+      semoney, secompany, seneedmoney
+      )
+    values (#{seid,jdbcType=INTEGER}, #{sename,jdbcType=VARCHAR}, #{selv,jdbcType=VARCHAR}, 
+      #{semoney,jdbcType=VARCHAR}, #{secompany,jdbcType=VARCHAR}, #{seneedmoney,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.my.outdoor.pojo.Secure" >
+    insert into secure
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="seid != null" >
+        seid,
+      </if>
+      <if test="sename != null" >
+        sename,
+      </if>
+      <if test="selv != null" >
+        selv,
+      </if>
+      <if test="semoney != null" >
+        semoney,
+      </if>
+      <if test="secompany != null" >
+        secompany,
+      </if>
+      <if test="seneedmoney != null" >
+        seneedmoney,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="seid != null" >
+        #{seid,jdbcType=INTEGER},
+      </if>
+      <if test="sename != null" >
+        #{sename,jdbcType=VARCHAR},
+      </if>
+      <if test="selv != null" >
+        #{selv,jdbcType=VARCHAR},
+      </if>
+      <if test="semoney != null" >
+        #{semoney,jdbcType=VARCHAR},
+      </if>
+      <if test="secompany != null" >
+        #{secompany,jdbcType=VARCHAR},
+      </if>
+      <if test="seneedmoney != null" >
+        #{seneedmoney,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.my.outdoor.pojo.SecureExample" resultType="java.lang.Integer" >
+    select count(*) from secure
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update secure
+    <set >
+      <if test="record.seid != null" >
+        seid = #{record.seid,jdbcType=INTEGER},
+      </if>
+      <if test="record.sename != null" >
+        sename = #{record.sename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.selv != null" >
+        selv = #{record.selv,jdbcType=VARCHAR},
+      </if>
+      <if test="record.semoney != null" >
+        semoney = #{record.semoney,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secompany != null" >
+        secompany = #{record.secompany,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seneedmoney != null" >
+        seneedmoney = #{record.seneedmoney,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update secure
+    set seid = #{record.seid,jdbcType=INTEGER},
+      sename = #{record.sename,jdbcType=VARCHAR},
+      selv = #{record.selv,jdbcType=VARCHAR},
+      semoney = #{record.semoney,jdbcType=VARCHAR},
+      secompany = #{record.secompany,jdbcType=VARCHAR},
+      seneedmoney = #{record.seneedmoney,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.my.outdoor.pojo.Secure" >
+    update secure
+    <set >
+      <if test="sename != null" >
+        sename = #{sename,jdbcType=VARCHAR},
+      </if>
+      <if test="selv != null" >
+        selv = #{selv,jdbcType=VARCHAR},
+      </if>
+      <if test="semoney != null" >
+        semoney = #{semoney,jdbcType=VARCHAR},
+      </if>
+      <if test="secompany != null" >
+        secompany = #{secompany,jdbcType=VARCHAR},
+      </if>
+      <if test="seneedmoney != null" >
+        seneedmoney = #{seneedmoney,jdbcType=INTEGER},
+      </if>
+    </set>
+    where seid = #{seid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.my.outdoor.pojo.Secure" >
+    update secure
+    set sename = #{sename,jdbcType=VARCHAR},
+      selv = #{selv,jdbcType=VARCHAR},
+      semoney = #{semoney,jdbcType=VARCHAR},
+      secompany = #{secompany,jdbcType=VARCHAR},
+      seneedmoney = #{seneedmoney,jdbcType=INTEGER}
+    where seid = #{seid,jdbcType=INTEGER}
+  </update>
+</mapper>
