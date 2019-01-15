@@ -24,6 +24,8 @@ public class Baominglist {
 		String string=gson.toJson(list);
 		System.out.println(string);
 		return string;
+
+
 		
 	}
 	
