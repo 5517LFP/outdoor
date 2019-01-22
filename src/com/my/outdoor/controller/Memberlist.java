@@ -3,6 +3,8 @@ package com.my.outdoor.controller;
 import java.awt.print.Pageable;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,10 @@ public class Memberlist {
 
 	@Autowired
 	private Memberservice memberservice;
+
+	private static final Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+
+
 	
 	@RequestMapping("/member/memberlist.action")
 	@ResponseBody
@@ -41,6 +47,7 @@ public class Memberlist {
 		page.setFormList(list);
 		Gson gson=new Gson();
 		String dataString=gson.toJson(page);
+		logger.info("展示会员列表，你惊喜不");
 		return dataString;
 		
 	}
