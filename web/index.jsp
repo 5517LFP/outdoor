@@ -137,7 +137,7 @@
 
 				<ul class="nav nav-list">
 					<li class="active">
-						<a href="index.html">
+						<a href="<%=basePath%>headshow.jsp" target="aa">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 管理菜单 </span>
 						</a>
