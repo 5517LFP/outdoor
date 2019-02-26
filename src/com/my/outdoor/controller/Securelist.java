@@ -2,6 +2,8 @@ package com.my.outdoor.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
@@ -17,6 +19,8 @@ import com.my.outdoor.service.Secureservice;
 public class Securelist {
 	@Autowired
 	private Secureservice secureservice;
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 	@RequestMapping("/secure/securelist.action")
 	@ResponseBody
 	public String listsecure(){
@@ -31,12 +35,12 @@ public class Securelist {
 	@ResponseBody
 	public String udateandaddanddel(Secure secure,String id,String oper){
 		if(oper.equals("edit")){
-			System.out.println("我已经进入edit");
+			logger.info("我已经进入edit");
 			
 			List<Secure> list=secureservice.securUpdate(secure);
 			Gson gson=new Gson();
 			String lString=gson.toJson(list);
-			System.out.println(lString);
+			logger.info(lString);
 			return lString;
 			
 		}
@@ -51,7 +55,7 @@ public class Securelist {
 			return string;
 		}
 		if(oper.equals("add")){
-		System.out.println("进来添加控制层");
+		logger.info("进来添加控制层");
 			secureservice.securAdd(secure);
 			List<Secure> list=secureservice.securlist();
 			Gson gson=new Gson();

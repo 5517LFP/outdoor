@@ -2,6 +2,8 @@ package com.my.outdoor.controller;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +17,15 @@ import com.my.outdoor.service.Baomingservice;
 public class Baominglist {
 	@Autowired
 	private Baomingservice baomingservice;
-	
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 	@RequestMapping("/baoming/baominglist.action")
 	@ResponseBody
 	public String benlistString(){
 		List<Benlist> list=baomingservice.listbenlist();
 		Gson gson=new Gson();
 		String string=gson.toJson(list);
-		System.out.println(string);
+		logger.info(string);
 		return string;
 
 
@@ -33,7 +36,7 @@ public class Baominglist {
 	@ResponseBody
 	public String udateandaddanddel(Benlist benlist,String id,String oper){
 		if(oper.equals("edit")){
-			System.out.println("我已经进入edit");
+			logger.info("我已经进入edit");
 			baomingservice.updateenlist(benlist);
 			List<Benlist> list=baomingservice.listbenlist();
 			Gson gson=new Gson();
@@ -51,7 +54,7 @@ public class Baominglist {
 			return string;
 		}
 		if(oper.equals("add")){
-		System.out.println("进来添加控制层");
+		logger.info("进来添加控制层");
 		baomingservice.addenlist(benlist);
 		List<Benlist> list=baomingservice.listbenlist();
 		Gson gson=new Gson();

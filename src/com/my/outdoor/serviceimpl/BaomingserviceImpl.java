@@ -2,6 +2,8 @@ package com.my.outdoor.serviceimpl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,8 @@ public class BaomingserviceImpl implements Baomingservice {
 	@Autowired
 	private BenlistMapper benlistMapper;
 
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+
 	@Override
 	public List<Benlist> listbenlist() {
 		BenlistExample example=new BenlistExample();
@@ -29,7 +33,7 @@ public class BaomingserviceImpl implements Baomingservice {
 		System.out.println(benlist.getBname());
 		int i=benlistMapper.insert(benlist);
 		if(i==1){
-			System.out.println("更新成功");
+			logger.info("更新成功");
 		}
 		
 	}
@@ -41,7 +45,7 @@ public class BaomingserviceImpl implements Baomingservice {
 		criteria.andBidEqualTo(benlist.getBid());
 		int i=benlistMapper.updateByExample(benlist, example);
 		if(i==1){
-			System.out.println("更新成功");
+			logger.info("更新成功");
 		}
 		
 	}
@@ -53,7 +57,7 @@ public class BaomingserviceImpl implements Baomingservice {
 		criteria.andBidEqualTo(benlist.getBid());
 		int i=benlistMapper.deleteByExample(example);
 		if(i==1){
-			System.out.println("删除成功");
+			logger.info("删除成功");
 		}
 		
 	}

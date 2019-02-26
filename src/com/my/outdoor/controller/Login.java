@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +27,14 @@ public class Login {
 	
 	@Autowired
 	private Activeservice activeservice;
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 	
 	@RequestMapping("/login/login.action")
 	@ResponseBody
 	public ModelAndView denglu(String username,String pwd,String status,HttpSession session){
 		ModelAndView mav=new ModelAndView();
-		System.out.println("我已经进入logincontroller"+username+pwd+status);
+		logger.info("我已经进入logincontroller"+username+pwd+status);
 		if(status.equals("adminstatus")){
 			Admin i=loginservice.denglu(username, pwd);
 			if(i!=null){

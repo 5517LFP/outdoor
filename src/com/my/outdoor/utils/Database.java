@@ -61,8 +61,8 @@ public class Database {
 	    }
 		//数据库的还原
 	@Scheduled(cron = "0 0/15 * * * ?")
-		public static void restore() {
-		System.out.println("数据库还原");
+		public  void restore() {
+		logger.info("数据库还原");
 	    }
 
 

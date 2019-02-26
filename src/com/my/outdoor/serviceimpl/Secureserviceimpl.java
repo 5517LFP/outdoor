@@ -2,6 +2,8 @@ package com.my.outdoor.serviceimpl;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ import com.my.outdoor.service.Secureservice;
 public class Secureserviceimpl implements Secureservice {
 	@Autowired
 	private SecureMapper secureMapper;
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 
 	@Override
 	public List<Secure> securlist() {
@@ -29,7 +33,7 @@ public class Secureserviceimpl implements Secureservice {
 		Criteria criteria=example.createCriteria();
 		int i=secureMapper.insert(secure);
 		if(i==1){
-			System.out.println("添加成功");
+			logger.info("添加成功");
 		}
 		
 	}
@@ -41,7 +45,7 @@ public class Secureserviceimpl implements Secureservice {
 		criteria.andSeidEqualTo(secure.getSeid());
 		int i=secureMapper.deleteByExample(example);
 		if(i==1){
-			System.out.println("添加成功");
+			logger.info("添加成功");
 		}
 		
 	}
@@ -53,7 +57,7 @@ public class Secureserviceimpl implements Secureservice {
 		criteria.andSeidEqualTo(secure.getSeid());
 		int i=secureMapper.updateByExample(secure, example);
 		if(i==1){
-			System.out.println("添加成功");
+			logger.info("添加成功");
 		}
 		return null;
 		

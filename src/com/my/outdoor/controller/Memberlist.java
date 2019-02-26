@@ -42,7 +42,7 @@ public class Memberlist {
 		page.setRecords(i);
 		List<Member> list=memberservice.selshowMembers(page);
 		for(Member m:list){
-			System.out.println(m.getHname());
+			logger.info(m.getHname());
 		}
 		page.setFormList(list);
 		Gson gson=new Gson();

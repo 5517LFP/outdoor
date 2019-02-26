@@ -2,6 +2,9 @@ package com.my.outdoor.controller;
 
 import java.util.List;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +19,8 @@ import com.my.outdoor.service.Lineservice;
 public class Linelist {
 	@Autowired
 	private Lineservice lineservice;
-	
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 	@RequestMapping("/line/linelist.action")
 	@ResponseBody
 	public String linelist(){
@@ -32,7 +36,7 @@ public class Linelist {
 	@ResponseBody
 	public String lineUpdateandaddanddelete(Linemanage line,String id,String oper,Integer lid){
 		if(oper.equals("edit")){
-			System.out.println("我已经进入edit");
+			logger.info("我已经进入edit");
 			lineservice.lineUpdate(line);
 			List<Linemanage> list=lineservice.lineshow();
 			Gson gson=new Gson();
@@ -43,7 +47,7 @@ public class Linelist {
 		if(oper.equals("del")){
 			Linemanage linemanage=new Linemanage();
 			linemanage.setLid(Integer.parseInt(id));
-			System.out.println("传进来的lid值为"+linemanage.getLid());
+			logger.info("传进来的lid值为"+linemanage.getLid());
 			lineservice.lineDelete(linemanage);
 			List<Linemanage> list=lineservice.lineshow();
 			Gson gson=new Gson();
@@ -51,7 +55,7 @@ public class Linelist {
 			return lString;
 		}
 		if(oper.equals("add")){
-			System.out.println("进来添加控制层");
+			logger.info("进来添加控制层");
 			lineservice.lineAdd(line);
 			List<Linemanage> list=lineservice.lineshow();
 			Gson gson=new Gson();
@@ -66,11 +70,11 @@ public class Linelist {
 	@RequestMapping("/list/listsearch.action")
 	@ResponseBody
 	public String lineSearch(Linemanage line){
-		System.out.println(line.getLinetype()+line.getLinecontent()+line.getLinename());
+		logger.info(line.getLinetype()+line.getLinecontent()+line.getLinename());
 		List<Linemanage> list=lineservice.lineSerch(line);
 		Gson gson=new Gson();
 		String listString=gson.toJson(list);
-		System.out.println(listString);
+		logger.info(listString);
 		return listString;
 		
 	}

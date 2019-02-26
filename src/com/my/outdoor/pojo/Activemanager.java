@@ -1,5 +1,7 @@
 package com.my.outdoor.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Activemanager {
     private Integer aid;
 

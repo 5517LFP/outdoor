@@ -2,6 +2,9 @@ package com.my.outdoor.serviceimpl;
 
 import java.util.List;
 
+import com.opensymphony.xwork2.util.logging.LoggerFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +26,8 @@ public class LineserviceImpl implements Lineservice {
 	@Autowired
 	private MemberMapper memberMapper;
 
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+
 	@Override
 	public List<Linemanage> lineshow() {
 		LinemanageExample example=new LinemanageExample();
@@ -41,7 +46,7 @@ public class LineserviceImpl implements Lineservice {
 		System.out.println(line.getLinename()+"lineid为"+line.getLid());
 		int i=linemanageMapper.updateByExampleSelective(line, example);
 		if(i==1){
-			System.out.println("更新成功");
+			logger.info("更新成功");
 			
 		}
 		
@@ -55,7 +60,7 @@ public class LineserviceImpl implements Lineservice {
 		criteria.andLidEqualTo(line.getLid());
 		int i=linemanageMapper.deleteByExample(example);
 		if(i==1){
-			System.out.println("删除成功");
+			logger.info("删除成功");
 		}
 		
 	}
@@ -66,7 +71,7 @@ public class LineserviceImpl implements Lineservice {
 		
 		int i=linemanageMapper.insert(line);
 		if(i==1){
-			System.out.println("添加成功");
+			logger.info("添加成功");
 		}
 	}
 
@@ -75,15 +80,15 @@ public class LineserviceImpl implements Lineservice {
 		LinemanageExample example=new LinemanageExample();
 		Criteria criteria=example.createCriteria();
 		if(line.getLinename()!=null){
-			System.out.println(line.getLinename());
+			logger.info(line.getLinename());
 			criteria.andLinenameLike("%"+line.getLinename()+"%");	
 		}
 		if(line.getLinecontent()!=null){
-			System.out.println(line.getLinecontent());
+			logger.info(line.getLinecontent());
 			criteria.andLinecontentLike("%"+line.getLinecontent()+"%");
 		}
 		if(line.getLinetype()!=null){
-			System.out.println("linetype进来了"+line.getLinetype());
+			logger.info("linetype进来了"+line.getLinetype());
 			criteria.andLinetypeLike("%"+line.getLinetype()+"%");
 		}
 		if(line.getAbouttime()!=null){
@@ -96,7 +101,7 @@ public class LineserviceImpl implements Lineservice {
 		
 		List<Linemanage> list=linemanageMapper.selectByExample(example);
 		for(Linemanage s:list){
-			System.out.println("返回数据为"+s.getLinename()+":"+s.getLinecontent());
+			logger.info("返回数据为"+s.getLinename()+":"+s.getLinecontent());
 			
 		}
 		// TODO Auto-generated method stub

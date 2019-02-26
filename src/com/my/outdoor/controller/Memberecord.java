@@ -2,6 +2,9 @@ package com.my.outdoor.controller;
 
 import java.util.List;
 
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +18,8 @@ import com.my.outdoor.service.Memberactive;
 public class Memberecord {
 	@Autowired
 	private Memberactive memberactive;
-	
+
+	private Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
 	
 	@RequestMapping("/memberecord/memrecordlist.action")
 	@ResponseBody
@@ -30,7 +34,7 @@ public class Memberecord {
 	@RequestMapping("/memberecord/selectmemrecordlist.action")
 	@ResponseBody
 	public String selectlistmemberrecord(String zy){
-		System.out.println("zy值为："+zy);
+		logger.info("zy值为："+zy);
 		
 		if(zy==null){
 			return null;
@@ -47,7 +51,7 @@ public class Memberecord {
 	@ResponseBody
 	public String updateandaddanddelete(Memactlist memactlist,String id,String oper,Integer maid){
 		if(oper.equals("edit")){
-			System.out.println("我已经进入edit");
+			logger.info("我已经进入edit");
 			memberactive.addmemactivelist(memactlist);
 			List<Memactlist> list=memberactive.listmemactlist();
 			Gson gson=new Gson();
@@ -56,7 +60,7 @@ public class Memberecord {
 			
 		}
 		if(oper.equals("del")){
-			System.out.println("传进来的id是"+id);
+			logger.info("传进来的id是"+id);
 			Memactlist memactlist2=new Memactlist();
 			memactlist2.setMaid(Integer.parseInt(id));
 			memberactive.delmemactivelist(memactlist2);
@@ -66,7 +70,7 @@ public class Memberecord {
 			return liststring;
 		}
 		if(oper.equals("add")){
-			System.out.println("进来添加控制层");
+			logger.info("进来添加控制层");
 			memberactive.addmemactivelist(memactlist);
 			List<Memactlist> list=memberactive.listmemactlist();
 			Gson gson=new Gson();
